@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>YouTube URL Logger Popup</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      width: 400px;
+      padding: 20px;
+      background: linear-gradient(135deg, #f0f4ff 0%, #d9e4ff 100%);
+      color: #333;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    body > div.container {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      padding: 24px 28px;
+      width: 100%;
+      max-width: 320px;
+      box-sizing: border-box;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      margin-top: 0px;
+      font-size: 20px;
+      color: black;
+      font-weight: 700;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      box-sizing: border-box;
+      border: 1.8px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      background-color: #fafafa;
+      color: #222;
+      outline-offset: 2px;
+    }
+    input[type="text"]:focus {
+      border-color: #3b82f6;
+      outline: none;
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+      background-color: #fff;
+    }
+    button {
+      margin-top: 16px;
+      width: 100%;
+      padding: 14px 0;
+      background-color: #3b82f6;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+    button:hover:not(:disabled) {
+      background-color: #2563eb;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
+    }
+    button:focus-visible {
+      outline: 3px solid #93c5fd;
+      outline-offset: 2px;
+    }
+    #messageDiv {
+      margin-top: 20px;
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 12px;
+      min-height: 56px;
+      font-weight: 500;
+      border: 1px solid #e2e8f0;
+      word-break: break-word;
+      white-space: pre-wrap;
+      color: #1e293b;
+      box-shadow: 0 2px 8px rgba(100, 116, 139, 0.1);
+      transition: background-color 0.3s ease;
+      max-height: none;
+      overflow-y: auto;
+      resize: vertical;
+    }
+    #logBtn {
+      background-color: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 14px 0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    #logBtn:hover:not(:disabled) {
+      background-color: #1e40af;
+      box-shadow: 0 6px 18px rgba(30, 64, 175, 0.5);
+    }
+    #logBtn:disabled {
+      background-color: #cbd5e1;
+      color: #64748b;
+      cursor: not-allowed;
+      opacity: 1;
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>YouTube Chat Assistant</h2>
+    <input type="text" id="messageInput" placeholder="Write a message..." autocomplete="off" />
+    <button id="logBtn" data-default-text="Ask your Query">Ask your Query</button>
+    <div id="messageDiv"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+==> 2025-08-31 00:57:50 <==
+# cmd: /opt/anaconda3/bin/conda create -p venv_backend
+# conda version: 25.5.1

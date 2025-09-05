@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "YouTube URL Logger with Popup",
+    "version": "1.1",
+    "description": "Show a popup with input to log message and current YouTube video URL",
+    "permissions": [
+      "tabs"
+    ],
+    "host_permissions": [
+      "*://www.youtube.com/watch*"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["*://www.youtube.com/watch*"],
+        "js": ["content.js"]
+      }
+    ],
+    "action": {
+      "default_popup": "popup.html",
+      "default_title": "YouTube URL Logger"
+    }
+  }
+  
