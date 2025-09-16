@@ -1,10 +1,10 @@
 {
     "manifest_version": 3,
-    "name": "YouTube URL Logger with Popup",
+    "name": "YouTube Chat extension",
     "version": "1.1",
     "description": "Show a popup with input to log message and current YouTube video URL",
     "permissions": [
-      "tabs"
+      "tabs", "scripting"
     ],
     "host_permissions": [
       "*://www.youtube.com/watch*"
@@ -17,7 +17,10 @@
     ],
     "action": {
       "default_popup": "popup.html",
-      "default_title": "YouTube URL Logger"
+      "default_title": "YouTube Chat extension"
+    },
+    "icons": {
+      "16": "icon.png"
     }
   }
   

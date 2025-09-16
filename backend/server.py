@@ -22,7 +22,7 @@ app.add_middleware(
 
 class VideoChatRequest(BaseModel):
     query: str
-    videoId: str
+    vidDetails: str
 
 class VideoChatResponse(BaseModel):
     answer: str
@@ -34,13 +34,14 @@ class VideoChatResponse(BaseModel):
 async def root():
     return {"message": "API is running"}
 
+
 @app.post("/videochat", response_model=VideoChatResponse)
 async def videochat_endpoint(request: VideoChatRequest) -> VideoChatResponse:
     try:
         # Direct call (synchronous)
         answer = generate_answer({
             "query": request.query,
-            "videoId": request.videoId
+            "vidDetails": request.vidDetails
         })
         return VideoChatResponse(answer=answer)
     except ValueError as ve:

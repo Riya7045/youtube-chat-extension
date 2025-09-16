@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const messageDiv = document.getElementById('messageDiv');
   const messageInput = document.getElementById('messageInput');
 
-  logBtn.addEventListener('click', () => {
+  logBtn.addEventListener('click', async () => {
     const message = messageInput.value.trim();
-
     if (!message) {
       messageDiv.textContent = 'Please enter a message.';
       return;
@@ -15,47 +14,53 @@ document.addEventListener('DOMContentLoaded', () => {
     logBtn.textContent = 'Processing...';
     messageDiv.textContent = 'Loading...';
 
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs.length === 0) {
-        messageDiv.textContent = 'No active tab found.';
-        logBtn.disabled = false;
-        logBtn.textContent = logBtn.getAttribute('data-default-text');
+    try {
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      if (!tab || !tab.url.includes('youtube.com/watch')) {
+        messageDiv.textContent = 'Open a YouTube video to use this extension.';
+        resetButton();
         return;
       }
 
-      const currentUrl = tabs[0].url;
-      const videoIdMatch = currentUrl.match(/[?&]v=([^&]+)/);
+      const results = await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: () => {
+          const title = document.querySelector('#title yt-formatted-string');
+          const otherDetails = document.getElementById('top-row');
+          const description = document.querySelector('#expanded yt-attributed-string');
+          const transcript = document.getElementById('panels');
 
-      if (videoIdMatch && videoIdMatch[1]) {
-        const videoId = videoIdMatch[1];
-        const data = {
-          query: message,
-          videoId: videoId
-        };
+          let titleText = title ? title.textContent : 'Title not found';
+          let descriptionText = description ? description.innerText.trim() : 'Description not found';
+          let otherDetailsText = transcript ? transcript.innerText : 'Transcript not found';
+          let transcriptText = otherDetails ? otherDetails.innerText : 'Details not found';
 
-        fetch('http://127.0.0.1:8000/videochat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        })
-          .then(response => response.json())
-          .then(jsonData => {
-            messageDiv.textContent = jsonData.answer;
-            logBtn.disabled = false;
-            logBtn.textContent = logBtn.getAttribute('data-default-text');
-          })
-          .catch(error => {
-            messageDiv.textContent = 'Error: ' + error.message;
-            logBtn.disabled = false;
-            logBtn.textContent = logBtn.getAttribute('data-default-text');
-          });
-      } else {
-        messageDiv.textContent = 'Open a YouTube video to use this extension.';
-        logBtn.disabled = false;
-        logBtn.textContent = logBtn.getAttribute('data-default-text');
-      }
-    });
+
+          return ` VideoTitle: \n\n ${titleText} \n\n Description: \n\n ${descriptionText} \n\n otherDetails: \n\n ${otherDetailsText} \n\n Transcript: \n\n ${transcriptText} `
+        }
+      });
+
+      const vidDetails = results[0].result;
+      const data = { query: message, vidDetails: vidDetails };
+      console.log(data);
+
+      const response = await fetch('https://youtube-chat-extensioin-backend.onrender.com/videochat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const jsonData = await response.json();
+      messageDiv.textContent = jsonData.answer || 'No answer received.';
+    } catch (error) {
+      messageDiv.textContent = 'Error: ' + error.message;
+    }
+
+    resetButton();
   });
+
+  function resetButton() {
+    logBtn.disabled = false;
+    logBtn.textContent = logBtn.getAttribute('data-default-text') || 'Submit';
+  }
 });
