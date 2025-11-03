@@ -1,8 +1,8 @@
-AI YouTube Assistant 🤖💬
+# AI YouTube Assistant 🤖💬
 
 A browser extension that allows you to have a conversation with any YouTube video. Ask questions about the video's content and get instant, context-aware answers powered by a real-time RAG (Retrieval-Augmented Generation) pipeline.
 
-Features
+## Features
 
 Conversational Q&A: Ask questions in natural language about the video you're watching.
 
@@ -12,7 +12,7 @@ Real-Time Generation: A new, in-memory vector store is created for each video, e
 
 Fast & Lightweight: Built with a modern FastAPI backend and a vanilla JavaScript frontend for minimal overhead.
 
-How It Works (Architecture)
+## How It Works (Architecture)
 
 This project uses a dynamic, per-request RAG pipeline to generate answers.
 
@@ -31,7 +31,7 @@ e.  Generation: The retrieved chunks (context) and your query are passed to the 
 
 Response: The generated answer is sent back to the browser extension and displayed in the chat UI.
 
-Tech Stack
+## Tech Stack
 
 Backend: Python
 
@@ -47,7 +47,7 @@ Frontend: JavaScript (as a browser extension)
 
 Transcript Fetching: youtube-transcript-api
 
-Setup & Installation
+## Setup & Installation
 
 You'll need to set up the backend server and the frontend extension separately.
 
