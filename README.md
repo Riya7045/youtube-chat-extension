@@ -51,7 +51,7 @@ Transcript Fetching: youtube-transcript-api
 
 You'll need to set up the backend server and the frontend extension separately.
 
-1. Backend Server
+### 1. Backend Server
 
 Clone the repository:
 
@@ -94,7 +94,7 @@ uvicorn server:app --reload
 
 The server will be running at http://127.0.0.1:8000.
 
-2. Frontend (Browser Extension)
+### 2. Frontend (Browser Extension)
 
 Configure the API Endpoint:
 Open the frontend JavaScript file (e.g., content.js or background.js) and ensure the fetch URL points to your local server:
@@ -111,7 +111,7 @@ d. Select the folder containing your extension's manifest.json file.
 Start Chatting:
 Open any YouTube video, and the chat assistant should appear.
 
-API Endpoint
+### API Endpoint
 
 POST /videochat
 
@@ -132,6 +132,6 @@ Success Response (200 OK):
 }
 
 
-License
+# License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
